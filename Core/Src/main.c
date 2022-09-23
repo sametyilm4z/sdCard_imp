@@ -47,6 +47,7 @@ SPI_HandleTypeDef hspi1;
 /* USER CODE BEGIN PV */
 
 uint8_t writeData[10] = "1111123456";
+uint8_t readData[10];
 uint8_t btw = 10;
 /* USER CODE END PV */
 
@@ -69,7 +70,6 @@ FRESULT fresult; // to store the result
 UINT br, bw; // file read/write count
 
 /* capacity related variables */
-FATFS *pfs;
 DWORD fre_clust;
 uint32_t total, free_space;
 
@@ -137,16 +137,20 @@ int main(void)
   /*****************************************/
  /* const char sciezka = '0' ;
   FATFS *fs = (void *) 0;
-  fresult= f_mount (pfs, &sciezka, 1);*/
-
+  fresult= f_mount (fs, &sciezka, 1);
+*/
  // BYTE work[100];
  // f_mkfs("", 1, 10);
 
+  //SD_disk_write();
 
+fresult = f_mount(&fs, "", 1);
+fresult = f_open(&fil, "F.txt", FA_CREATE_ALWAYS | FA_WRITE | FA_READ);//open file
+fresult = f_write(&fil, writeData, btw, &bw); //Writing data
+fresult = f_close(&fil);//close file
 
-f_mount(pfs, "0://", 1);
-fresult = f_open(&fil, "F.txt", FA_OPEN_ALWAYS | FA_WRITE);//open file
-fresult = f_write(&fil, writeData, btw, bw); //Writing data
+fresult = f_open(&fil, "F.txt", FA_OPEN_ALWAYS | FA_WRITE | FA_READ);//open file
+fresult = f_read(&fil, readData, 10, &br);
 fresult = f_close(&fil);//close file
 /*
 //open file to read
