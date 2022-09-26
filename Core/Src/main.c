@@ -69,9 +69,6 @@ FRESULT fresult; // to store the result
 
 UINT br, bw; // file read/write count
 
-/* capacity related variables */
-DWORD fre_clust;
-uint32_t total, free_space;
 
 /* to send the data to the uart*/
 /* void send_uart(char *string){
@@ -118,31 +115,7 @@ int main(void)
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
- /* fresult = f_mount(&fs, "", 0);
-  if (fresult != FR_OK) send_uart ("ERROR!!! in mounting SD CARD...\n");
-  else send_uart("SD CARD mounted successfully...\n");
-*/
-/*************Card capacity details*******************/
-  /* Check free space */
-  /*f_getfree("", &fre_clust, &pfs);
 
-  total = (uint32_t)((pfs->n_fatent - 2) * pfs->csize * 0.5);
-  sprintf(buffer, "SD CARD Total Size: \t%lu\n", total);
-  send_uart(buffer);
-  bufclear();
-  sprintf(buffer, "SD CARD Total Size: \t%lu\n", free_space);
-  send_uart(buffer);
-*/
-
-  /*****************************************/
- /* const char sciezka = '0' ;
-  FATFS *fs = (void *) 0;
-  fresult= f_mount (fs, &sciezka, 1);
-*/
- // BYTE work[100];
- // f_mkfs("", 1, 10);
-
-  //SD_disk_write();
 
 fresult = f_mount(&fs, "", 1);
 fresult = f_open(&fil, "F.txt", FA_CREATE_ALWAYS | FA_WRITE | FA_READ);//open file
